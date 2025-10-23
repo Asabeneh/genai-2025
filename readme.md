@@ -309,3 +309,31 @@ Apply everything you’ve learned in a practical, creative project.
 * Reflect on lessons learned and ethical considerations.
 
 
+## Some of the common GenAI
+- [ChatGPT](https://chatgpt.com/)
+- [Gemini](https://gemini.google.com/)
+- [Grok](https://grok.com/)
+- [Claude](https://claude.ai/)
+- [Deepseek](https://www.deepseek.com/en)
+  
+## Code formatting use Markdown
+
+Some snippet of code in JavaScript
+```javascript
+
+const makeSquare = (n) => {
+    return n ** 2
+}
+console.log(makeSquare(2)) # 4
+console.log(makeSquare(5)) # 25
+```
+Some snippet of code in Python
+
+```python
+
+def make_square (n):
+    return n ** 2
+
+print(make_square(2)) # 4
+print(make_square(5)) # 25
+```
