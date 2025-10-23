@@ -1,8 +1,9 @@
-
 # 🎓 **Generative AI for Work and Daily Use**
 
 **Autumn 2025**
 **Instructor:** Asabeneh Yetayeh
+
+![Generative AI for work and daily use banner](./generative_ai_for_work_and_daily_use.jpg)
 
 ---
 
