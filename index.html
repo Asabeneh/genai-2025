@@ -1,606 +1,744 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Generative AI for Work and Daily Use — Autumn 2025</title>
-  <meta name="description" content="Course: Generative AI for Work and Daily Use — Instructor: Asabeneh Yetayeh. Modules, exercises, quizzes and capstone project." />
-  <meta name="author" content="Asabeneh Yetayeh" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generative AI for Work and Daily Use - Autumn 2025</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-  <!-- Fonts (system + fallback) -->
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <style>
-    :root{
-      --bg:#0f1724; /* dark navy */
-      --card:#0b1220;
-      --muted:#94a3b8;
-      --accent:#7c3aed; /* purple */
-      --accent-2:#06b6d4; /* teal */
-      --surface:#0b1220;
-      --text:#e6eef8;
-      --glass: rgba(255,255,255,0.03);
-      --radius:12px;
-      --max-width:1100px;
-      --focus: 3px solid rgba(124,58,237,0.25);
-      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-    }
-    /* Light theme support */
-    @media (prefers-color-scheme: light){
-      :root{ --bg: #f7f9fc; --card:#ffffff; --muted:#475569; --accent:#6d28d9; --accent-2:#0891b2; --text:#0b1220; --glass: rgba(11,18,32,0.03);} 
-    }
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #8b5cf6;
+            --accent: #ec4899;
+            --bg: #0f172a;
+            --bg-card: #1e293b;
+            --text: #f1f5f9;
+            --text-muted: #cbd5e1;
+            --border: #334155;
+            --success: #10b981;
+            --warning: #f59e0b;
+        }
 
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0;
-      background: linear-gradient(180deg,var(--bg), #061226 140%);
-      color:var(--text);
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
-      line-height:1.5;
-      padding:32px 16px;
-      display:flex;
-      justify-content:center;
-      font-size:16px;
-    }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background: var(--bg);
+        }
 
-    .container{
-      width:100%;
-      max-width:var(--max-width);
-    }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
 
-    /* Skip link for keyboard users */
-    .skip-link{
-      position:absolute;
-      left:8px;
-      top:8px;
-      padding:8px 12px;
-      background:var(--accent);
-      color:white;
-      border-radius:8px;
-      transform:translateY(-120%);
-      transition:transform 0.18s ease;
-      z-index:60;
-    }
-    .skip-link:focus{transform:none}
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            padding: 3rem 0;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+        }
 
-    header.site-header{
-      display:flex;
-      gap:16px;
-      align-items:center;
-      justify-content:space-between;
-      margin-bottom:24px;
-    }
-    .brand{
-      display:flex;gap:12px;align-items:center;
-    }
-    .logo{width:64px;height:64px;border-radius:10px;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;font-weight:700;font-size:20px;color:white;box-shadow:0 6px 20px rgba(7,10,25,0.6)}
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
 
-    .title-wrap h1{margin:0;font-size:20px}
-    .title-wrap p{margin:0;color:var(--muted);font-size:14px}
+        header .semester {
+            font-size: 1.2rem;
+            opacity: 0.95;
+            margin-bottom: 0.5rem;
+        }
 
-    nav.primary{
-      display:flex;gap:8px;align-items:center;
-    }
-    .nav-links{display:flex;gap:6px}
-    .nav-links a{color:var(--text);text-decoration:none;padding:8px 12px;border-radius:8px;font-weight:600}
-    .nav-links a:hover, .nav-links a:focus{outline:none;background:var(--glass)}
+        header .instructor {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
 
-    /* Layout */
-    .layout{
-      display:grid;
-      grid-template-columns: 300px 1fr;
-      gap:24px;
-      align-items:start;
-    }
-    @media (max-width:900px){
-      .layout{grid-template-columns:1fr}
-    }
+        nav {
+            background: var(--bg-card);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
 
-    /* Sidebar */
-    aside.sidebar{
-      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      padding:18px;border-radius:var(--radius);backdrop-filter: blur(6px);
-      position:sticky;top:32px;height:fit-content;align-self:start
-    }
-    .toc{display:flex;flex-direction:column;gap:8px}
-    .toc a{color:var(--muted);text-decoration:none;padding:8px;border-radius:8px;font-size:14px}
-    .toc a:hover{color:var(--text);background:var(--glass)}
+        nav ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 1rem 0;
+        }
 
-    /* Main content */
-    main.card{
-      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      padding:28px;border-radius:var(--radius);min-height:60vh;backdrop-filter: blur(6px);
-    }
+        nav li {
+            margin: 0.5rem 1rem;
+        }
 
-    .hero{
-      display:grid;grid-template-columns:1fr 220px;gap:18px;align-items:center;margin-bottom:20px
-    }
-    @media (max-width:900px){.hero{grid-template-columns:1fr}}
+        nav a {
+            color: var(--text);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            transition: all 0.3s;
+            display: block;
+        }
 
-    .hero h2{margin:0 0 6px 0}
-    .meta{color:var(--muted);font-size:14px}
-    .banner{width:100%;height:160px;border-radius:12px;background-size:cover;background-position:center;box-shadow:inset 0 0 0 1px rgba(255,255,255,0.02)}
+        nav a:hover {
+            background: var(--primary);
+            transform: translateY(-2px);
+        }
 
-    section.module{margin-top:22px;padding-top:14px;border-top:1px dashed rgba(255,255,255,0.03)}
-    section.module h3{margin:0 0 8px 0}
-    .lead{color:var(--muted);margin-bottom:12px}
+        main {
+            padding: 3rem 0;
+        }
 
-    ul,ol{margin:0 0 12px 20px}
+        .module {
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: 2.5rem;
+            margin-bottom: 3rem;
+            border: 1px solid var(--border);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+            transition: transform 0.3s;
+        }
 
-    /* Cards for exercises and quizzes */
-    .exercise, .quiz, .note{
-      background: rgba(255,255,255,0.02);
-      border-radius:10px;padding:12px;margin:12px 0;border-left:4px solid rgba(124,58,237,0.15)
-    }
-    .exercise h4, .quiz h4{margin:0 0 6px 0}
-    .quiz ul li{margin:6px 0}
+        .module:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 12px rgba(0,0,0,0.3);
+        }
 
-    /* Code block styling */
-    pre{background:#071229;padding:12px;border-radius:8px;overflow:auto;font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", "Courier New", monospace;font-size:13px}
-    code{color:#c7d2fe}
+        .module h2 {
+            color: var(--primary);
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
 
-    .controls{display:flex;gap:8px;align-items:center}
-    .btn{
-      display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:10px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.03);cursor:pointer;color:var(--text);text-decoration:none;font-weight:600
-    }
-    .btn:focus{outline:none;box-shadow:var(--focus)}
-    .btn.secondary{background:transparent;border:1px solid rgba(255,255,255,0.04);color:var(--muted)}
+        .module h3 {
+            color: var(--secondary);
+            font-size: 1.5rem;
+            margin: 2rem 0 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
 
-    footer.site-footer{margin-top:28px;color:var(--muted);font-size:14px;display:flex;justify-content:space-between;align-items:center}
+        .module h4 {
+            color: var(--accent);
+            font-size: 1.2rem;
+            margin: 1.5rem 0 0.75rem;
+        }
 
-    /* small utilities */
-    .muted{color:var(--muted)}
-    .kbd{background:rgba(255,255,255,0.03);padding:4px 8px;border-radius:6px;font-weight:700}
+        .module ul, .module ol {
+            margin-left: 2rem;
+            margin-bottom: 1rem;
+        }
 
-    /* focus visible styles */
-    a:focus, button:focus, input:focus, select:focus{outline:none;box-shadow:var(--focus);border-radius:8px}
+        .module li {
+            margin-bottom: 0.5rem;
+            color: var(--text-muted);
+        }
 
-  </style>
+        .module p {
+            margin-bottom: 1rem;
+            color: var(--text-muted);
+        }
+
+        .section {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background: rgba(99, 102, 241, 0.05);
+            border-left: 4px solid var(--primary);
+            border-radius: 6px;
+        }
+
+        .exercise, .quiz {
+            background: rgba(139, 92, 246, 0.1);
+            border-left: 4px solid var(--secondary);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 6px;
+        }
+
+        .quiz {
+            background: rgba(236, 72, 153, 0.1);
+            border-left-color: var(--accent);
+        }
+
+        code {
+            background: rgba(0,0,0,0.4);
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            color: var(--success);
+        }
+
+        pre {
+            background: rgba(0,0,0,0.4);
+            padding: 1.5rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 1rem 0;
+            border: 1px solid var(--border);
+        }
+
+        pre code {
+            background: none;
+            padding: 0;
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .tool-card {
+            background: rgba(99, 102, 241, 0.1);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            transition: all 0.3s;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--primary);
+            box-shadow: 0 4px 8px rgba(99, 102, 241, 0.3);
+        }
+
+        .tool-card a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .tool-card a:hover {
+            color: var(--secondary);
+        }
+
+        .checkmark {
+            color: var(--success);
+        }
+
+        .crossmark {
+            color: #ef4444;
+        }
+
+        footer {
+            background: var(--bg-card);
+            padding: 2rem 0;
+            text-align: center;
+            margin-top: 4rem;
+            border-top: 1px solid var(--border);
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.8rem;
+            }
+
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .module {
+                padding: 1.5rem;
+            }
+
+            .module h2 {
+                font-size: 1.5rem;
+            }
+
+            .tools-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .highlight {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(139, 92, 246, 0.2));
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+        }
+
+        strong {
+            color: var(--text);
+            font-weight: 600;
+        }
+    </style>
 </head>
 <body>
-  <a class="skip-link" href="#main">Skip to content</a>
-  <div class="container" id="page">
-
-    <header class="site-header" role="banner">
-      <div class="brand">
-        <div class="logo" aria-hidden>GA</div>
-        <div class="title-wrap">
-          <h1>Generative AI for Work and Daily Use</h1>
-          <p class="muted">Autumn 2025 • Instructor: Asabeneh Yetayeh</p>
+    <header>
+        <div class="container">
+            <h1>🎓 Generative AI for Work and Daily Use</h1>
+            <p class="semester">Autumn 2025</p>
+            <p class="instructor"><strong>Instructor:</strong> Asabeneh Yetayeh</p>
         </div>
-      </div>
-
-      <nav class="primary" aria-label="Primary navigation">
-        <div class="nav-links" role="navigation">
-          <a href="#modules">Modules</a>
-          <a href="#exercises">Exercises</a>
-          <a href="#capstone">Capstone</a>
-          <a href="#resources">Resources</a>
-        </div>
-        <div class="controls">
-          <button class="btn" id="themeToggle" aria-pressed="false" title="Toggle theme">Toggle theme</button>
-        </div>
-      </nav>
     </header>
 
-    <div class="layout">
+    <nav>
+        <ul>
+            <li><a href="#module1">Module 1</a></li>
+            <li><a href="#module2">Module 2</a></li>
+            <li><a href="#module3">Module 3</a></li>
+            <li><a href="#module4">Module 4</a></li>
+            <li><a href="#module5">Module 5</a></li>
+            <li><a href="#module6">Module 6</a></li>
+            <li><a href="#module7">Module 7</a></li>
+            <li><a href="#module8">Module 8</a></li>
+            <li><a href="#tools">GenAI Tools</a></li>
+        </ul>
+    </nav>
 
-      <aside class="sidebar" aria-label="Course navigation">
-        <h4 class="muted">Course modules</h4>
-        <nav class="toc" aria-label="Table of contents">
-          <a href="#module-1">Module 1 — Introduction</a>
-          <a href="#module-2">Module 2 — Everyday Use</a>
-          <a href="#module-3">Module 3 — Content Creation</a>
-          <a href="#module-4">Module 4 — Automation</a>
-          <a href="#module-5">Module 5 — Hands-On</a>
-          <a href="#module-6">Module 6 — Advanced</a>
-          <a href="#module-7">Module 7 — Ethics</a>
-          <a href="#module-8">Module 8 — Capstone</a>
-          <a href="#resources">Resources</a>
-        </nav>
-        <div style="height:12px"></div>
-        <div class="note" role="note">
-          <strong>Tip:</strong> Use <span class="kbd">Tab</span> to navigate. This site is keyboard friendly.
-        </div>
-      </aside>
-
-      <main id="main" class="card" tabindex="-1" role="main">
-
-        <div class="hero">
-          <div>
-            <h2>Generative AI for Work and Daily Use</h2>
-            <p class="meta">A practical, hands-on guide to using Generative AI in personal and professional workflows.</p>
-            <p class="muted">This single-page resource contains all modules, exercises, quiz prompts, and a capstone project.</p>
-          </div>
-
-          <div>
-            <div class="banner" role="img" aria-label="Generative AI for work and daily use banner" style="background-image:url('./generative_ai_for_work_and_daily_use.jpg')"></div>
-          </div>
-        </div>
-
-        <!-- Module 1 -->
-        <section id="module-1" class="module" aria-labelledby="m1">
-          <h3 id="m1">Module 1 — Introduction to Generative AI</h3>
-          <p class="lead">By the end of this module, learners should be able to explain what Generative AI is, understand how models like GPT and diffusion models work, and identify popular Generative AI tools.</p>
-
-          <article>
-            <h4>Explanation</h4>
-            <p>Generative Artificial Intelligence refers to a class of AI systems capable of <strong>creating new content</strong>—such as text, code, music, or images—based on what they have learned from vast datasets.</p>
-            <p>Traditional AI systems <em>analyze or classify</em> data, while Generative AI <em>produces</em> new outputs.</p>
-
-            <h5>How it works</h5>
+    <main class="container">
+        <section id="module1" class="module">
+            <h2>Module 1: Introduction to Generative AI</h2>
+            
+            <h3>🎯 Learning Objectives</h3>
+            <p>By the end of this module, learners should be able to:</p>
             <ul>
-              <li><strong>Transformers</strong> — the architecture behind GPT, Claude, Gemini, and Llama.</li>
-              <li><strong>Diffusion models</strong> — used in image generation tools like DALL·E, Midjourney, Stable Diffusion.</li>
-              <li><strong>GANs</strong> — two networks compete to create realistic outputs.</li>
+                <li>Explain what Generative AI is and how it differs from traditional AI.</li>
+                <li>Understand how generative models such as GPT and diffusion models work.</li>
+                <li>Identify popular Generative AI tools and their use cases.</li>
             </ul>
 
-            <h5>Real-world analogy</h5>
-            <p>Think of Generative AI as an advanced autocomplete system that can complete full essays, images, or code snippets.</p>
+            <h3>📘 Explanation</h3>
+            <p>Generative Artificial Intelligence refers to a class of AI systems capable of <strong>creating new content</strong>—such as text, code, music, or images—based on what they have learned from vast datasets. Traditional AI systems <em>analyze or classify</em> data (e.g., detecting spam), while Generative AI <em>produces</em> new, original outputs (e.g., writing an email or creating a picture).</p>
 
-            <h5>Examples</h5>
+            <h4>⚙️ How It Works</h4>
+            <p>Most modern Generative AI tools are built using:</p>
             <ul>
-              <li>ChatGPT writing a professional email</li>
-              <li>DALL·E generating a logo</li>
-              <li>Copilot suggesting blocks of code</li>
+                <li><strong>Transformers:</strong> The architecture behind models like GPT, Claude, Gemini, and Llama.</li>
+                <li><strong>Diffusion Models:</strong> Used in image generation tools like DALL·E, Midjourney, and Stable Diffusion.</li>
+                <li><strong>GANs (Generative Adversarial Networks):</strong> One neural network creates data while another evaluates it.</li>
             </ul>
 
-            <div class="exercise" aria-labelledby="m1-ex">
-              <h4 id="m1-ex">Exercises</h4>
-              <ol>
-                <li>Explain the difference between <strong>traditional AI</strong> and <strong>Generative AI</strong> in your own words.</li>
-                <li>Research and list 3 Generative AI tools and describe their purpose.</li>
-                <li>Use ChatGPT to generate a motivational quote and rewrite it in a funny tone.</li>
-              </ol>
-            </div>
+            <h4>🧠 Real-world Analogy</h4>
+            <p>Think of Generative AI like an <em>advanced autocomplete system</em>. When you start typing, it predicts what you might say next—but it can do this for <strong>entire essays, images, code, or even videos</strong>.</p>
 
-            <div class="quiz" aria-labelledby="m1-q">
-              <h4 id="m1-q">Quiz</h4>
-              <ol>
-                <li>What is the main goal of Generative AI? <em>Answer: Creation</em></li>
-                <li>Which model is used for image generation? <em>Answer: Diffusion</em></li>
-                <li>True or False: GANs involve two neural networks competing. <em>True</em></li>
-              </ol>
-            </div>
-          </article>
-        </section>
-
-        <!-- Module 2 -->
-        <section id="module-2" class="module" aria-labelledby="m2">
-          <h3 id="m2">Module 2 — Everyday Use Cases</h3>
-          <p class="lead">How Generative AI helps in productivity, learning, and creativity.</p>
-
-          <article>
-            <h4>Productivity</h4>
+            <h3>🧩 Examples</h3>
             <ul>
-              <li>Summarize meeting notes</li>
-              <li>Draft and polish emails</li>
-              <li>Plan schedules or meal plans</li>
-            </ul>
-
-            <h4>Learning & Education</h4>
-            <ul>
-              <li>AI as a tutor</li>
-              <li>Generate quizzes and flashcards</li>
-              <li>Summarize chapters</li>
-            </ul>
-
-            <h4>Creativity</h4>
-            <ul>
-              <li>Generate art and logos</li>
-              <li>Write stories and lyrics</li>
-              <li>Create social media posts</li>
+                <li>ChatGPT writing a professional email.</li>
+                <li>DALL·E generating a logo for a business idea.</li>
+                <li>Copilot suggesting entire blocks of code.</li>
             </ul>
 
             <div class="exercise">
-              <h4>Exercises</h4>
-              <ol>
-                <li>Ask ChatGPT to create a daily to-do list for a software developer.</li>
-                <li>Use an image tool to design a poster for a personal project.</li>
-                <li>Summarize an article in 3 bullets using AI.</li>
-              </ol>
+                <h3>🧪 Exercise</h3>
+                <ol>
+                    <li>In your own words, explain the difference between <strong>traditional AI</strong> and <strong>Generative AI</strong>.</li>
+                    <li>Research and list 3 Generative AI tools and describe their main purpose.</li>
+                    <li>Use ChatGPT to generate a motivational quote and rewrite it in a funny tone.</li>
+                </ol>
             </div>
 
             <div class="quiz">
-              <h4>Quiz</h4>
-              <ol>
-                <li>Which of the following is not a common personal use of Generative AI? <em>Automating factory machines</em></li>
-                <li>True or False: AI can create personalized workout plans. <em>True</em></li>
-                <li>Fill in the blank: AI can be your <strong>tutor</strong> in learning.</li>
-              </ol>
+                <h3>📝 Quiz</h3>
+                <ol>
+                    <li>What is the main goal of Generative AI?
+                        <ul>
+                            <li>a) Classification</li>
+                            <li>b) Prediction</li>
+                            <li>c) Creation <span class="checkmark">✅</span></li>
+                            <li>d) Optimization</li>
+                        </ul>
+                    </li>
+                    <li>Which of the following models is used for image generation?
+                        <ul>
+                            <li>a) Transformer</li>
+                            <li>b) Diffusion <span class="checkmark">✅</span></li>
+                            <li>c) RNN</li>
+                            <li>d) CNN</li>
+                        </ul>
+                    </li>
+                    <li>True or False: GANs involve two neural networks competing with each other. <span class="checkmark">✅ True</span></li>
+                </ol>
             </div>
-
-          </article>
         </section>
 
-        <!-- Module 3 -->
-        <section id="module-3" class="module" aria-labelledby="m3">
-          <h3 id="m3">Module 3 — Workplace Applications — Content Creation</h3>
-          <p class="lead">Use AI to scale writing, design, and media work while maintaining quality.</p>
-
-          <article>
-            <h4>Writing & Communication</h4>
+        <section id="module2" class="module">
+            <h2>Module 2: Everyday Use Cases</h2>
+            
+            <h3>🎯 Learning Objectives</h3>
             <ul>
-              <li>Draft marketing content</li>
-              <li>Generate SEO-optimized articles</li>
-              <li>Edit for tone and grammar</li>
+                <li>Recognize how Generative AI can improve daily productivity.</li>
+                <li>Learn to apply AI tools in learning, writing, and communication.</li>
+                <li>Explore creative personal applications of AI.</li>
             </ul>
 
-            <h4>Design & Media</h4>
+            <h3>📘 Explanation</h3>
+            <p>Generative AI isn't just for developers—it's for everyone. It can act as your <strong>personal assistant</strong>, <strong>creative partner</strong>, or <strong>learning companion</strong>.</p>
+
+            <h4>💼 Productivity Examples</h4>
             <ul>
-              <li>Generate images for presentations</li>
-              <li>Use AI video tools for quick edits</li>
-              <li>Produce visual mockups</li>
+                <li>Summarize meeting notes using ChatGPT.</li>
+                <li>Draft and polish emails in seconds.</li>
+                <li>Plan daily schedules or meal plans.</li>
+            </ul>
+
+            <h4>📚 Learning and Education</h4>
+            <ul>
+                <li>Use AI as a tutor to explain difficult concepts.</li>
+                <li>Generate quizzes and flashcards for revision.</li>
+                <li>Summarize chapters or articles for faster learning.</li>
+            </ul>
+
+            <h4>🎨 Creativity and Entertainment</h4>
+            <ul>
+                <li>Generate art, logos, or character designs.</li>
+                <li>Write poems, stories, or lyrics.</li>
+                <li>Create social media posts or captions.</li>
             </ul>
 
             <div class="exercise">
-              <h4>Exercises</h4>
-              <ol>
-                <li>Use ChatGPT to generate a 150-word LinkedIn post about “AI in Education”.</li>
-                <li>Create an image using DALL·E or Canva to match the post.</li>
-                <li>Edit AI's draft to reflect your personal style.</li>
-              </ol>
+                <h3>🧪 Exercise</h3>
+                <ol>
+                    <li>Ask ChatGPT to create a <strong>daily to-do list</strong> for a software developer.</li>
+                    <li>Use an image tool like <strong>Canva Magic Studio</strong> or <strong>DALL·E</strong> to design a poster for a personal project.</li>
+                    <li>Use AI to summarize an online article of your choice in 3 bullet points.</li>
+                </ol>
             </div>
 
             <div class="quiz">
-              <h4>Quiz</h4>
-              <ol>
-                <li>Which is a risk of using AI in content creation? <em>Reduced accuracy</em></li>
-                <li>What should you always do after generating content with AI? <em>Review, edit, verify</em></li>
-              </ol>
+                <h3>📝 Quiz</h3>
+                <ol>
+                    <li>Which of the following is <strong>not</strong> a common personal use of Generative AI?
+                        <ul>
+                            <li>a) Summarizing notes</li>
+                            <li>b) Automating factory machines <span class="checkmark">✅</span></li>
+                            <li>c) Writing social media posts</li>
+                            <li>d) Translating text</li>
+                        </ul>
+                    </li>
+                    <li>True or False: Generative AI can create personalized workout plans. <span class="checkmark">✅ True</span></li>
+                    <li>Fill in the blank: AI can be your ______ in learning new subjects. <span class="checkmark">✅ Tutor</span></li>
+                </ol>
             </div>
-
-          </article>
         </section>
 
-        <!-- Module 4 -->
-        <section id="module-4" class="module" aria-labelledby="m4">
-          <h3 id="m4">Module 4 — Workplace Applications — Automation and Analysis</h3>
-          <p class="lead">Automate repetitive tasks and extract insights from data using AI tools.</p>
-
-          <article>
-            <h4>Examples</h4>
+        <section id="module3" class="module">
+            <h2>Module 3: Workplace Applications – Content Creation</h2>
+            
+            <h3>🎯 Learning Objectives</h3>
             <ul>
-              <li>Draft meeting summaries automatically</li>
-              <li>Generate reports from spreadsheets</li>
-              <li>Use chatbots for customer support</li>
+                <li>Explore how AI enhances writing, design, and media production.</li>
+                <li>Learn effective prompting for professional content creation.</li>
+                <li>Understand how to maintain authenticity when using AI tools.</li>
             </ul>
 
-            <h4>Integrations</h4>
+            <h3>📘 Explanation</h3>
+            <p>Generative AI can create blogs, reports, visuals, and more—helping professionals save time and boost creativity.</p>
+
+            <h4>✍️ Writing and Communication</h4>
             <ul>
-              <li>Zapier + OpenAI</li>
-              <li>Microsoft Copilot</li>
-              <li>Notion AI</li>
+                <li>Draft marketing content and press releases.</li>
+                <li>Generate SEO-optimized articles or ad copy.</li>
+                <li>Edit for grammar, tone, and engagement.</li>
+            </ul>
+
+            <h4>🎨 Design and Media</h4>
+            <ul>
+                <li>Generate images for blogs or presentations.</li>
+                <li>Use AI video tools (like RunwayML) for quick video edits.</li>
+                <li>Produce mockups and visual prototypes.</li>
+            </ul>
+
+            <h4>💡 Best Practices</h4>
+            <ul>
+                <li>Always edit and fact-check AI-generated content.</li>
+                <li>Maintain a human voice and ethical transparency.</li>
             </ul>
 
             <div class="exercise">
-              <h4>Exercises</h4>
-              <ol>
-                <li>Summarize a 2-page report into bullet points using ChatGPT.</li>
-                <li>Design an automation: "When I receive an email about a meeting, create a calendar event."</li>
-                <li>Create a chatbot prompt to handle a customer question.</li>
-              </ol>
+                <h3>🧪 Exercise</h3>
+                <ol>
+                    <li>Use ChatGPT to generate a 150-word LinkedIn post about "AI in Education."</li>
+                    <li>Create an image that visually represents your post using DALL·E or Canva Magic Studio.</li>
+                    <li>Edit the AI's draft to reflect your personal tone and style.</li>
+                </ol>
             </div>
 
             <div class="quiz">
-              <h4>Quiz</h4>
-              <ol>
-                <li>Which tool can automate workflows? <em>Zapier</em></li>
-                <li>True or False: AI can extract key points from long documents. <em>True</em></li>
-              </ol>
+                <h3>📝 Quiz</h3>
+                <ol>
+                    <li>Which of the following is a risk of using AI in content creation?
+                        <ul>
+                            <li>a) Increased creativity</li>
+                            <li>b) Reduced accuracy <span class="checkmark">✅</span></li>
+                            <li>c) Better time management</li>
+                            <li>d) Improved visuals</li>
+                        </ul>
+                    </li>
+                    <li>What should you always do after generating content with AI? <span class="checkmark">✅ Review, edit, and verify the facts.</span></li>
+                </ol>
             </div>
-
-          </article>
         </section>
 
-        <!-- Module 5 -->
-        <section id="module-5" class="module" aria-labelledby="m5">
-          <h3 id="m5">Module 5 — Hands-On with Visual and Coding Tools</h3>
-          <p class="lead">Practical work using text-to-image and text-to-code tools.</p>
-
-          <article>
-            <h4>Tools overview</h4>
+        <section id="module4" class="module">
+            <h2>Module 4: Workplace Applications – Automation and Analysis</h2>
+            
+            <h3>🎯 Learning Objectives</h3>
             <ul>
-              <li>ChatGPT / Copilot — coding assistance</li>
-              <li>DALL·E / Midjourney — text-to-image</li>
-              <li>RunwayML / Pika — video generation</li>
+                <li>Automate repetitive workflows using AI tools.</li>
+                <li>Use AI for data summarization and decision support.</li>
+                <li>Identify popular integrations and productivity platforms.</li>
+            </ul>
+
+            <h3>📘 Explanation</h3>
+            <p>Generative AI isn't limited to writing—it can automate processes and analyze data intelligently.</p>
+
+            <h4>⚙️ Examples</h4>
+            <ul>
+                <li>Automatically draft meeting summaries.</li>
+                <li>Generate reports from Excel data.</li>
+                <li>Use AI chatbots for customer support.</li>
+            </ul>
+
+            <h4>🔗 Integrations</h4>
+            <ul>
+                <li><strong>Zapier + OpenAI</strong> for workflow automation.</li>
+                <li><strong>Microsoft Copilot</strong> for AI assistance in Word, Excel, and PowerPoint.</li>
+                <li><strong>Notion AI</strong> for intelligent note management.</li>
             </ul>
 
             <div class="exercise">
-              <h4>Exercises</h4>
-              <ol>
-                <li>Generate an image of a "Futuristic Classroom" using an image AI.</li>
-                <li>Ask ChatGPT to write a JavaScript function that reverses a string.</li>
-                <li>Use Copilot to optimize the code.</li>
-              </ol>
+                <h3>🧪 Exercise</h3>
+                <ol>
+                    <li>Use ChatGPT to summarize a 2-page report into bullet points.</li>
+                    <li>Design a simple automation plan: "When I receive an email about a meeting, automatically create a calendar event."</li>
+                    <li>Create a chatbot prompt for responding to a customer query.</li>
+                </ol>
             </div>
 
             <div class="quiz">
-              <h4>Quiz</h4>
-              <ol>
-                <li>Which tool can generate code? <em>GitHub Copilot</em></li>
-                <li>True or False: Midjourney is used for coding. <em>False</em></li>
-              </ol>
+                <h3>📝 Quiz</h3>
+                <ol>
+                    <li>Which tool can automate workflows using AI? <span class="checkmark">✅ Zapier</span></li>
+                    <li>True or False: Generative AI can extract key points from long documents. <span class="checkmark">✅ True</span></li>
+                </ol>
+            </div>
+        </section>
+
+        <section id="module5" class="module">
+            <h2>Module 5: Hands-On with Visual and Coding Tools</h2>
+            
+            <h3>🎯 Learning Objectives</h3>
+            <ul>
+                <li>Practice using text-to-image and text-to-code tools.</li>
+                <li>Develop small projects combining multiple AI tools.</li>
+                <li>Understand how to refine prompts for better results.</li>
+            </ul>
+
+            <h3>📘 Tools Overview</h3>
+            <ul>
+                <li><strong>ChatGPT / Copilot:</strong> Coding assistance and debugging.</li>
+                <li><strong>DALL·E / Midjourney:</strong> Text-to-image generation.</li>
+                <li><strong>RunwayML / Pika:</strong> Video generation.</li>
+            </ul>
+
+            <div class="exercise">
+                <h3>🧪 Exercises</h3>
+                <ol>
+                    <li>Generate an image of a "Futuristic Classroom" using an image AI.</li>
+                    <li>Ask ChatGPT to write a JavaScript function that reverses a string.</li>
+                    <li>Use Copilot to optimize the code.</li>
+                </ol>
             </div>
 
-            <h4>Code examples</h4>
-            <p class="muted">Code blocks are formatted using Markdown-style snippets.</p>
-            <pre><code class="language-js">// JavaScript
-const makeSquare = (n) =&gt; {
-  return n ** 2
+            <div class="quiz">
+                <h3>📝 Quiz</h3>
+                <ol>
+                    <li>Which of the following tools can generate code? <span class="checkmark">✅ GitHub Copilot</span></li>
+                    <li>True or False: Midjourney is used for coding. <span class="crossmark">❌ False</span></li>
+                </ol>
+            </div>
+        </section>
+
+        <section id="module6" class="module">
+            <h2>Module 6: Advanced Applications and Workflows</h2>
+            
+            <h3>🎯 Learning Objectives</h3>
+            <ul>
+                <li>Combine tools to build automated pipelines.</li>
+                <li>Learn how to create and integrate custom AI agents.</li>
+                <li>Understand the concept of fine-tuning and personalization.</li>
+            </ul>
+
+            <h3>📘 Explanation</h3>
+            <p>Advanced AI workflows connect multiple tools for automation and creativity:</p>
+            <ul>
+                <li><strong>Idea → Draft → Visual → Publish</strong></li>
+                <li><strong>Data → Analyze → Visualize → Summarize</strong></li>
+            </ul>
+            <p>You can even create personal AI agents that assist with emails, scheduling, or content production.</p>
+
+            <div class="exercise">
+                <h3>🧪 Exercise</h3>
+                <ol>
+                    <li>Create a workflow that uses ChatGPT for content, Canva for visuals, and Notion for publishing.</li>
+                    <li>Plan a custom AI chatbot for a specific role (e.g., a writing coach or study assistant).</li>
+                </ol>
+            </div>
+
+            <div class="quiz">
+                <h3>📝 Quiz</h3>
+                <ol>
+                    <li>What is "fine-tuning" in AI? <span class="checkmark">✅ Training a model on specialized data to improve task-specific performance.</span></li>
+                </ol>
+            </div>
+        </section>
+
+        <section id="module7" class="module">
+            <h2>Module 7: Ethics, Limitations, and Best Practices</h2>
+            
+            <h3>🎯 Learning Objectives</h3>
+            <ul>
+                <li>Understand ethical concerns in AI-generated content.</li>
+                <li>Recognize limitations and biases of Generative AI.</li>
+                <li>Learn responsible and transparent AI use.</li>
+            </ul>
+
+            <h3>📘 Key Points</h3>
+            <ul>
+                <li><strong>Transparency:</strong> Always disclose AI involvement.</li>
+                <li><strong>Bias Awareness:</strong> AI reflects the data it was trained on.</li>
+                <li><strong>Privacy:</strong> Avoid sharing personal or confidential information.</li>
+            </ul>
+
+            <div class="exercise">
+                <h3>🧪 Exercise</h3>
+                <ol>
+                    <li>Find an example of biased AI output and discuss how to fix it.</li>
+                    <li>Write a short paragraph explaining why ethical AI use matters.</li>
+                </ol>
+            </div>
+
+            <div class="quiz">
+                <h3>📝 Quiz</h3>
+                <ol>
+                    <li>True or False: AI-generated text can be published without review. <span class="crossmark">❌ False</span></li>
+                    <li>What is one ethical principle of AI use? <span class="checkmark">✅ Transparency</span></li>
+                </ol>
+            </div>
+        </section>
+
+        <section id="module8" class="module">
+            <h2>Module 8: Capstone Project and Course Wrap-Up</h2>
+            
+            <h3>🎯 Objective</h3>
+            <p>Apply everything you've learned in a practical, creative project.</p>
+
+            <h3>📘 Project Options</h3>
+            <ol>
+                <li><strong>AI-Powered Blog:</strong> Automate article writing and visuals.</li>
+                <li><strong>Personal Assistant:</strong> Build a daily planner using ChatGPT + Zapier.</li>
+                <li><strong>AI Story Generator:</strong> Combine ChatGPT + DALL·E to create visual stories.</li>
+            </ol>
+
+            <h3>📋 Submission Requirements</h3>
+            <ul>
+                <li>Describe your goal, tools, and workflow.</li>
+                <li>Showcase results (e.g., link, screenshots, or demo).</li>
+                <li>Reflect on lessons learned and ethical considerations.</li>
+            </ul>
+        </section>
+
+        <section id="tools" class="module">
+            <h2>Some of the Common GenAI Tools</h2>
+            <div class="tools-grid">
+                <div class="tool-card">
+                    <a href="https://chatgpt.com/" target="_blank">ChatGPT</a>
+                    <p>Conversational AI for text generation and assistance</p>
+                </div>
+                <div class="tool-card">
+                    <a href="https://gemini.google.com/" target="_blank">Gemini</a>
+                    <p>Google's AI assistant for various tasks</p>
+                </div>
+                <div class="tool-card">
+                    <a href="https://grok.com/" target="_blank">Grok</a>
+                    <p>AI chatbot with real-time knowledge</p>
+                </div>
+                <div class="tool-card">
+                    <a href="https://claude.ai/" target="_blank">Claude</a>
+                    <p>AI assistant for analysis and creative tasks</p>
+                </div>
+                <div class="tool-card">
+                    <a href="https://www.deepseek.com/en" target="_blank">Deepseek</a>
+                    <p>Advanced AI model for complex reasoning</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="module">
+            <h2>Code Formatting Examples</h2>
+            
+            <h3>JavaScript Example</h3>
+            <pre><code>const makeSquare = (n) => {
+    return n ** 2
 }
 console.log(makeSquare(2)) // 4
-console.log(makeSquare(5)) // 25
-</code></pre>
+console.log(makeSquare(5)) // 25</code></pre>
 
-            <pre><code class="language-py"># Python
-
-def make_square(n):
-  return n ** 2
+            <h3>Python Example</h3>
+            <pre><code>def make_square(n):
+    return n ** 2
 
 print(make_square(2)) # 4
-print(make_square(5)) # 25
-</code></pre>
-
-          </article>
+print(make_square(5)) # 25</code></pre>
         </section>
+    </main>
 
-        <!-- Module 6 -->
-        <section id="module-6" class="module" aria-labelledby="m6">
-          <h3 id="m6">Module 6 — Advanced Applications and Workflows</h3>
-          <p class="lead">Combine tools to build pipelines, custom agents and learn fine-tuning basics.</p>
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Generative AI Course. All rights reserved.</p>
+            <p>Instructor: Asabeneh Yetayeh</p>
+        </div>
+    </footer>
 
-          <article>
-            <h4>Workflows</h4>
-            <ul>
-              <li>Idea → Draft → Visual → Publish</li>
-              <li>Data → Analyze → Visualize → Summarize</li>
-            </ul>
-
-            <div class="exercise">
-              <h4>Exercises</h4>
-              <ol>
-                <li>Create a workflow that uses ChatGPT, Canva, and Notion.</li>
-                <li>Plan a custom AI chatbot for a role (writing coach).</li>
-              </ol>
-            </div>
-
-            <div class="quiz">
-              <h4>Quiz</h4>
-              <ol>
-                <li>What is fine-tuning? <em>Training a model on specialized data</em></li>
-              </ol>
-            </div>
-          </article>
-        </section>
-
-        <!-- Module 7 -->
-        <section id="module-7" class="module" aria-labelledby="m7">
-          <h3 id="m7">Module 7 — Ethics, Limitations, and Best Practices</h3>
-          <p class="lead">Understand ethical concerns, bias, privacy, and responsible AI use.</p>
-
-          <article>
-            <h4>Key points</h4>
-            <ul>
-              <li><strong>Transparency:</strong> disclose AI involvement</li>
-              <li><strong>Bias awareness:</strong> AI reflects training data</li>
-              <li><strong>Privacy:</strong> don't share confidential info</li>
-            </ul>
-
-            <div class="exercise">
-              <h4>Exercises</h4>
-              <ol>
-                <li>Find biased AI output and propose mitigations.</li>
-                <li>Write why ethical AI use matters (short paragraph).</li>
-              </ol>
-            </div>
-
-            <div class="quiz">
-              <h4>Quiz</h4>
-              <ol>
-                <li>True or False: AI-generated text can be published without review. <em>False</em></li>
-                <li>What is one ethical principle? <em>Transparency</em></li>
-              </ol>
-            </div>
-          </article>
-        </section>
-
-        <!-- Module 8 -->
-        <section id="module-8" class="module" aria-labelledby="m8">
-          <h3 id="m8">Module 8 — Capstone Project & Wrap-up</h3>
-          <p class="lead">Apply everything in a final project and present results.</p>
-
-          <article>
-            <h4>Project options</h4>
-            <ul>
-              <li>AI-powered blog</li>
-              <li>Personal assistant (ChatGPT + Zapier)</li>
-              <li>AI story generator (ChatGPT + DALL·E)</li>
-            </ul>
-
-            <h4>Submission</h4>
-            <ul>
-              <li>Goal, tools, workflow</li>
-              <li>Showcase (link, screenshots, demo)</li>
-              <li>Reflection on ethics and lessons learned</li>
-            </ul>
-
-          </article>
-        </section>
-
-        <!-- Resources -->
-        <section id="resources" class="module" aria-labelledby="res">
-          <h3 id="res">Resources & Links</h3>
-          <p class="lead">Some common Generative AI platforms and external reading.</p>
-          <ul>
-            <li><a href="https://chatgpt.com/" target="_blank" rel="noopener">ChatGPT</a></li>
-            <li><a href="https://gemini.google.com/" target="_blank" rel="noopener">Gemini</a></li>
-            <li><a href="https://grok.com/" target="_blank" rel="noopener">Grok</a></li>
-            <li><a href="https://claude.ai/" target="_blank" rel="noopener">Claude</a></li>
-            <li><a href="https://www.deepseek.com/en" target="_blank" rel="noopener">Deepseek</a></li>
-          </ul>
-        </section>
-
-        <footer class="site-footer">
-          <div>© Autumn 2025 — Asabeneh Yetayeh</div>
-          <div class="muted">Built with accessibility and responsiveness in mind.</div>
-        </footer>
-
-      </main>
-    </div>
-
-  </div>
-
-  <script>
-    // Theme toggle (simple class toggle, respects prefers-color-scheme)
-    (function(){
-      const btn = document.getElementById('themeToggle');
-      const root = document.documentElement;
-      const toggle = () => {
-        const current = root.getAttribute('data-theme');
-        if(current === 'light'){
-          root.removeAttribute('data-theme');
-          btn.setAttribute('aria-pressed','false');
-        } else {
-          root.setAttribute('data-theme','light');
-          btn.setAttribute('aria-pressed','true');
-        }
-      };
-      btn.addEventListener('click', toggle);
-
-      // Keyboard accessible anchors: ensure on-page links receive focus
-      document.querySelectorAll('a[href^="#"]').forEach(a=>{
-        a.addEventListener('click', (e)=>{
-          // small delay to ensure target exists
-          const id = a.getAttribute('href').slice(1);
-          const tgt = document.getElementById(id);
-          if(tgt){ setTimeout(()=> tgt.focus({preventScroll:false}), 100); }
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
         });
-      });
 
-      // Improve code blocks: add copy buttons
-      document.querySelectorAll('pre').forEach(pre=>{
-        const btn = document.createElement('button');
-        btn.className='btn secondary';
-        btn.type='button';
-        btn.innerText='Copy';
-        btn.style.marginBottom='8px';
-        btn.addEventListener('click', async ()=>{
-          try{
-            await navigator.clipboard.writeText(pre.innerText);
-            btn.innerText='Copied';
-            setTimeout(()=>btn.innerText='Copy',1500);
-          }catch(e){ btn.innerText='No clipboard';setTimeout(()=>btn.innerText='Copy',1500)}
+        // Add active state to navigation
+        const sections = document.querySelectorAll('.module');
+        const navLinks = document.querySelectorAll('nav a');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.style.background = '';
+                if (link.getAttribute('href').slice(1) === current) {
+                    link.style.background = 'var(--primary)';
+                }
+            });
         });
-        pre.parentNode.insertBefore(btn, pre);
-      });
-
-      // Respect reduced-motion
-      const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
-      if(mq.matches){ document.documentElement.style.scrollBehavior='auto'; }
-
-    })();
-  </script>
+    </script>
 </body>
 </html>
