@@ -5,8 +5,6 @@
 
 ![Generative AI for work and daily use banner](./generative_ai_for_work_and_daily_use.jpg)
 
----
-
 ## **Module 1: Introduction to Generative AI**
 
 ### 🎯 Learning Objectives
